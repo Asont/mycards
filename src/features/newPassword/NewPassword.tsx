@@ -18,7 +18,6 @@ const NewPassword = () => {
             <div className={s.form}>
                 <Form onSubmit={handleSubmit(onSubmit)}>
                     <h2 className={s.title}>Create new paswword</h2>
-
                     <FormGroup className="mb-3" controlId="formNewPassword">
                         <FormControl type={'password'} placeholder={'Password'} {...register('password', {
                             required: {
@@ -33,13 +32,13 @@ const NewPassword = () => {
                         <Form.Text className="text-muted">
                             {errors.password?.message}
                         </Form.Text>
+                            <Form.Text >
+                                <p className={s.text}>Create new password and we will send you further instructions to email</p>
+                            </Form.Text>
                     </FormGroup>
+                    <Button type={'submit'} size={'sm'} className={s.button} onClick={() => {
+                    }}>Create new Password</Button>
                 </Form>
-                <div>
-                    <p className={s.text}>Create new password and we will send you further instructions to email</p>
-                </div>
-                <Button type={'button'} size={'sm'} className={s.button} onClick={() => {
-                }}>Create new Password</Button>
             </div>
         </div>
     );
