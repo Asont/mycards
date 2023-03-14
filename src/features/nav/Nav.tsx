@@ -1,6 +1,6 @@
 import React from 'react';
 import ComButton from "../../common/components/Button/ComButton";
-import logo from '../../common/assets/logo.svg'
+import logo from '../../common/assets/img/logo.svg'
 import s from './Nav.module.scss'
 
 export const Nav = () => {
