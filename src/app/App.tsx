@@ -10,6 +10,8 @@ import {Profile} from "../features/profile/Profile";
 import {PageNotFound} from "../features/pageNotFound/PageNotFound";
 import {Nav} from "../features/nav/Nav";
 import {CheckEmail} from "../features/checkEmail/CheckEmail";
+import {SpinnerForApp} from "../common/components/spinner/Spinner";
+import {useAppSelector} from "./store";
 
 
 const enum CARDS {
@@ -24,9 +26,14 @@ const enum CARDS {
 }
 
 function App() {
+
+    const loading = useAppSelector(state => state.app.status)
+
+
     return (
         <div className="App">
             <Nav/>
+            {loading==='loading' && <SpinnerForApp/>}
             <Routes>
                 <Route path={CARDS.LOGIN} element={<Login/>}/>
                 <Route path={CARDS.REGISTRATION} element={<Registration/>}/>

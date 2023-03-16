@@ -6,11 +6,9 @@ import {SubmitHandler, useForm} from "react-hook-form";
 type InputType = {
     password: string
 }
-
 const NewPassword = () => {
 
     const {register, handleSubmit, formState: {errors}} = useForm<InputType>()
-
     const onSubmit: SubmitHandler<InputType> = (data) => alert(data)
 
     return (

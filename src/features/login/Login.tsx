@@ -2,6 +2,10 @@ import Form from 'react-bootstrap/Form';
 import s from './Login.module.scss'
 import ComButton from "../../common/components/Button/ComButton";
 import {SubmitHandler, useForm} from "react-hook-form";
+import {useAppDispatch, useAppSelector} from "../../app/store";
+import {Navigate, useNavigate} from 'react-router-dom'
+import {loginIn} from "../../app/authSlice";
+import {useDispatch} from "react-redux";
 
 type Inputs = {
     email: string
@@ -11,8 +15,17 @@ type Inputs = {
 
 function Login() {
 
+    const login = useAppSelector(state=>state.auth.login)
+    const dispatch = useDispatch<useAppDispatch>()
+    const navigate = useNavigate()
+    const error = useAppSelector(state=>state.app.error)
     const {register, handleSubmit, formState: {errors}} = useForm<Inputs>();
-    const onSubmit: SubmitHandler<Inputs> = data => alert(data.email);
+    const onSubmit: SubmitHandler<Inputs> = data => dispatch(loginIn(data));
+
+
+    if(login){
+       return <Navigate to={'/'}/>
+    }
 
     return (
         <div className={s.container}>
