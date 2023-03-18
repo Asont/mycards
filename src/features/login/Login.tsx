@@ -3,7 +3,7 @@ import s from './Login.module.scss'
 import ComButton from "../../common/components/Button/ComButton";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useAppDispatch, useAppSelector} from "../../app/store";
-import {Navigate, useNavigate} from 'react-router-dom'
+import {Navigate} from 'react-router-dom'
 import {loginIn} from "../../app/authSlice";
 import {useDispatch} from "react-redux";
 
@@ -15,16 +15,15 @@ type Inputs = {
 
 function Login() {
 
-    const login = useAppSelector(state=>state.auth.login)
+    const login = useAppSelector(state => state.auth.login)
     const dispatch = useDispatch<useAppDispatch>()
-    const navigate = useNavigate()
-    const error = useAppSelector(state=>state.app.error)
+    const error = useAppSelector(state => state.app.error)
     const {register, handleSubmit, formState: {errors}} = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = data => dispatch(loginIn(data));
 
 
-    if(login){
-       return <Navigate to={'/'}/>
+    if (login) {
+        return <Navigate to={'/'}/>
     }
 
     return (
@@ -36,11 +35,11 @@ function Login() {
                     <Form.Label>Email</Form.Label>
                     <Form.Control type="email" defaultValue={'bet1@gmail.com'} placeholder="Enter email"
                                   {...register('email', {
-                        required: {
-                            value: true,
-                            message: 'This is required'
-                        }
-                    })}/>
+                                      required: {
+                                          value: true,
+                                          message: 'This is required'
+                                      }
+                                  })}/>
                     <Form.Text className="text-muted">
                         {errors.email?.message}
                     </Form.Text>

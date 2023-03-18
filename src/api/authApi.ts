@@ -3,6 +3,15 @@ import {instance} from "./instance";
 export const authApi = {
     login(data:{email: string, password: string, rememberMe: boolean}){
         return instance.post<RequestLoginType,ResponseLoginType>('/auth/login', data)
+    },
+    logout(){
+        return instance.delete('/auth/me')
+    }
+}
+
+export const appApi = {
+    initialized (){
+        return instance.post<ResponseLoginType>('/auth/me', {})
     }
 }
 

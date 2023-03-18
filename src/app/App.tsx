@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import {Link, Navigate, Route, Routes} from 'react-router-dom'
@@ -10,8 +10,10 @@ import {Profile} from "../features/profile/Profile";
 import {PageNotFound} from "../features/pageNotFound/PageNotFound";
 import {Nav} from "../features/nav/Nav";
 import {CheckEmail} from "../features/checkEmail/CheckEmail";
-import {SpinnerForApp} from "../common/components/spinner/Spinner";
-import {useAppSelector} from "./store";
+import {useAppDispatch, useAppSelector} from "./store";
+import {useDispatch} from "react-redux";
+import {isInitializedTC} from "./appSlice";
+import {ProgressBar} from "react-bootstrap";
 
 
 const enum CARDS {
@@ -29,11 +31,24 @@ function App() {
 
     const loading = useAppSelector(state => state.app.status)
 
+    const login = useAppSelector(state=>state.auth.login)
+    const dispatch =useDispatch<useAppDispatch>()
+    const initialized = useAppSelector(state=>state.app.isInitialezed)
+
+    useEffect(()=>{
+        dispatch(isInitializedTC())
+    },[])
+
+    if(!initialized){
+        return <ProgressBar/>
+    }
+
+
 
     return (
         <div className="App">
-            <Nav/>
-            {loading==='loading' && <SpinnerForApp/>}
+            <Nav login={login}/>
+            {/*{loading==='loading' && <SpinnerForApp/>}*/}
             <Routes>
                 <Route path={CARDS.LOGIN} element={<Login/>}/>
                 <Route path={CARDS.REGISTRATION} element={<Registration/>}/>

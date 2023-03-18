@@ -2,8 +2,7 @@ import React from 'react';
 import s from './Registration.module.scss'
 import Form from "react-bootstrap/Form";
 import {SubmitHandler, useForm} from "react-hook-form";
-import ComButton from "../../common/components/Button/ComButton";
-import {FormGroup} from "react-bootstrap";
+import {Button, FormGroup} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
 type Inputs = {
@@ -58,8 +57,8 @@ const Registration = () => {
                                })}/>
              </FormGroup>
                 <div className={s.buttonContainer}>
-                    <ComButton name={'Sign Up'} callback={() => {
-                    }} typeButton={"submit"} disable={false}/>
+                    <Button className={s.button} type={'submit'} size={'sm'} onClick={() => {
+                    }}>Sign Up</Button>
                 </div>
                 <div className={s.downText}>
                     <p>Already have an account?</p>

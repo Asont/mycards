@@ -9,7 +9,7 @@ const Profile = () => {
     const dispatch = useDispatch<useAppDispatch>()
     const navigate =useNavigate()
 
-    if(login){
+    if(!login){
         return <Navigate to={'login'}/>
     }
 
