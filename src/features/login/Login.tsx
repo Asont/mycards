@@ -1,11 +1,13 @@
 import Form from 'react-bootstrap/Form';
 import s from './Login.module.scss'
-import ComButton from "../../common/components/Button/ComButton";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useAppDispatch, useAppSelector} from "../../app/store";
-import {Navigate} from 'react-router-dom'
+import {Link, Navigate} from 'react-router-dom'
 import {loginIn} from "../../app/authSlice";
 import {useDispatch} from "react-redux";
+import {CARDS} from "../../app/App";
+import {Button} from "react-bootstrap";
+import React from "react";
 
 type Inputs = {
     email: string
@@ -28,12 +30,12 @@ function Login() {
 
     return (
         <div className={s.container}>
-
             <Form className={s.form} onSubmit={handleSubmit(onSubmit)}>
                 <h2 className={s.title}>Sign in</h2>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" defaultValue={'bet1@gmail.com'} placeholder="Enter email"
+                    <Form.Label className={s.emailText}>Email</Form.Label>
+                    <Form.Control type="email" className={s.emailInput} defaultValue={'bet1@gmail.com'}
+                                  placeholder="Enter email"
                                   {...register('email', {
                                       required: {
                                           value: true,
@@ -46,8 +48,9 @@ function Login() {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" defaultValue={"1qxcvBG3"}
+                    <Form.Label className={s.passwordText}>Password</Form.Label>
+                    <Form.Control type="password" className={s.passwordInput} placeholder="Password"
+                                  defaultValue={"1qxcvBG3"}
                                   {...register('password', {
                                       required: {value: true, message: 'This is required'}, minLength: {
                                           value: 4,
@@ -56,12 +59,17 @@ function Login() {
                                   })}/>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Remember me" {...register('rememberMe')}/>
+                    <Form.Check type="checkbox" label="Remember me" {...register('rememberMe')} className={s.checkBox}/>
+                    <div className={s.linkContainer}>
+                        <Link to={CARDS.RECOVERY_PASSWORD} className={s.link}>Forgot Password?</Link>
+                    </div>
+                    <div className={s.buttonContainer}>
+                        <Button variant={'primary'} className={s.button} onClick={() => {
+                        }} size={'sm'} type={"button"} disabled={false}>Sign in</Button>
+                        <p className={s.text}>Already have an account?</p>
+                        <Link to={CARDS.REGISTRATION} className={s.linkSignUp}>Sign Up</Link>
+                    </div>
                 </Form.Group>
-                <div className={s.buttonContainer}>
-                    <ComButton name={'Sign in'} callback={() => {
-                    }} typeButton={"submit"} disable={false}/>
-                </div>
             </Form>
         </div>
     );

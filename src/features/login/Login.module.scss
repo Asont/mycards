@@ -1,30 +1,102 @@
-.container{
+.container {
   justify-content: center;
   display: flex;
   align-items: center;
   margin-top: 100px;
 
-  .form{
-    .title{
+  .form {
+
+    .title {
       text-align: center;
       font-size: 26px;
       margin-bottom: 41px;
+      font-weight: 600;
+      font-style: normal;
     }
-    height: 413px;
+
+    .emailText, .passwordText {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 13px;
+      color: #000000;
+      opacity: 0.5;
+    }
+
+    .emailInput, .passwordInput {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    height: fit-content;
     width: 528px;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
     border-radius: 2px;
-    padding:35px;
-    .buttonContainer{
+    padding: 35px;
+
+    .checkBox {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .linkContainer {
+      display: flex;
+      justify-content: right;
+      align-items: center;
+      flex-direction: row;
+
+      .link {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        margin: 10px 0 20px;
+        color: #000000;
+        text-decoration: none;
+        text-align: right;
+      }
+    }
+
+    .buttonContainer {
       display: flex;
       justify-content: center;
-  }
+      flex-direction: column;
+      text-align: center;
+      align-items: center;
+
+      .button {
+        width: 347px;
+        height: 36px;
+        box-shadow: 0 4px 18px rgba(54, 110, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        border-radius: 30px;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+      }
+
+      .text {
+        font-size: 14px;
+        margin-top: 15px;
+        color: #000000;
+        opacity: 0.5;
+      }
+
+      .linkSignUp {
+        font-weight: 600;
+        font-size: 16px;
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+
     @media screen and (max-width: 1366px) {
       width: 400px;
       height: fit-content;
     }
   }
+
   @media screen and (max-width: 1366px) {
-    margin:50px;
+    margin: 30px;
   }
 }

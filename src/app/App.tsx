@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
-import {Link, Navigate, Route, Routes} from 'react-router-dom'
+import {Link, Route, Routes} from 'react-router-dom'
 import {Login} from "../features/login/Login";
 import {Registration} from "../features/registration/Registration";
 import {RecoveryPassword} from "../features/recoveryPassword/RecoveryPassword";
@@ -16,33 +16,33 @@ import {isInitializedTC} from "./appSlice";
 import {ProgressBar} from "react-bootstrap";
 
 
-const enum CARDS {
+export const enum CARDS {
     LOGIN = 'login',
     PAGE_NOT_FOUND = '404',
     PROFILE = '/',
     RECOVERY_PASSWORD = 'recovery-password',
     REGISTRATION = 'registration',
     INSERT_NEW_PASSWORD = 'new-password',
-    CHECK_EMAIL= 'check-email'
+    CHECK_EMAIL = 'check-email'
 
 }
 
 function App() {
-
+    debugger
     const loading = useAppSelector(state => state.app.status)
 
-    const login = useAppSelector(state=>state.auth.login)
-    const dispatch =useDispatch<useAppDispatch>()
-    const initialized = useAppSelector(state=>state.app.isInitialezed)
+    const login = useAppSelector(state => state.auth.login)
+    const dispatch = useDispatch<useAppDispatch>()
+    const initialized = useAppSelector(state => state.app.isInitialezed)
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(isInitializedTC())
-    },[])
+    }, [])
 
-    if(!initialized){
+    if (!initialized) {
+        debugger
         return <ProgressBar/>
     }
-
 
 
     return (
@@ -57,9 +57,15 @@ function App() {
                 <Route path={CARDS.PROFILE} element={<Profile/>}/>
                 <Route path={CARDS.PAGE_NOT_FOUND} element={<PageNotFound/>}/>
                 <Route path={CARDS.CHECK_EMAIL} element={<CheckEmail/>}/>
-                <Route path={'*'} element={<Navigate to={CARDS.PAGE_NOT_FOUND}/>}/>
+                {/*<Route path={'*'} element={<Navigate to={CARDS.PAGE_NOT_FOUND}/>}/>*/}
             </Routes>
-            <div style={{display:'flex', flexDirection:'column', textDecoration:'none', color:'blue', padding:'10px'}}>
+            <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                textDecoration: 'none',
+                color: 'blue',
+                padding: '10px'
+            }}>
                 <Link to={CARDS.LOGIN}>Login </Link>
                 <Link to={CARDS.REGISTRATION}>Registration</Link>
                 <Link to={CARDS.INSERT_NEW_PASSWORD}>Insert new password</Link>

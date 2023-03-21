@@ -3,9 +3,13 @@ import s from './Registration.module.scss'
 import Form from "react-bootstrap/Form";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {Button, FormGroup} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {CARDS} from "../../app/App";
+import {useDispatch} from "react-redux";
+import {useAppDispatch, useAppSelector} from "../../app/store";
+import {registration} from "../../app/appSlice";
 
-type Inputs = {
+type InputsType = {
     email: string
     password: string
     confirmPassword: string
@@ -14,17 +18,28 @@ type Inputs = {
 
 const Registration = () => {
 
-    const {register, handleSubmit, formState: {errors}} = useForm<Inputs>();
-    const onSubmit: SubmitHandler<Inputs> = data => alert(data.email);
+    const navigate = useNavigate()
+    const dispatch = useDispatch<useAppDispatch>()
+    const successRegistration = useAppSelector(state => state.app.success)
+
+    const {register, handleSubmit, formState: {errors}} = useForm<InputsType>();
+    const onSubmit: SubmitHandler<InputsType> = (data) => {
+        const param = {email:data.email, password:data.password}
+        dispatch(registration(param))
+    }
+
+    debugger
+    if (successRegistration) {
+        navigate(`/${CARDS.CHECK_EMAIL}`)
+    }
 
     return (
         <div className={s.container}>
-
             <Form className={s.form} onSubmit={handleSubmit(onSubmit)}>
                 <h2 className={s.title}>Sign Up</h2>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email"
+                    <Form.Label className={s.emailText}>Email</Form.Label>
+                    <Form.Control type="email" className={s.emailInput} placeholder="Enter email"
                                   {...register('email', {
                                       required: {
                                           value: true,
@@ -37,8 +52,8 @@ const Registration = () => {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password"
+                    <Form.Label className={s.passwordText}>Password</Form.Label>
+                    <Form.Control type="password" className={s.passwordInput} placeholder="Password"
                                   {...register('password', {
                                       required: {value: true, message: 'This is required'}, minLength: {
                                           value: 4,
@@ -46,25 +61,21 @@ const Registration = () => {
                                       }
                                   })}/>
                 </Form.Group>
-             <FormGroup className="mb-3" controlId='formBasisConfirmPassword'>
-                 <Form.Label>Confirm password</Form.Label>
-                 <Form.Control type="password" placeholder="Confirm password"
-                               {...register('confirmPassword', {
-                                   required: {value: true, message: 'This is required'}, minLength: {
-                                       value: 4,
-                                       message: 'Min length 4'
-                                   }
-                               })}/>
-             </FormGroup>
+                <FormGroup className="mb-3" controlId='formBasisConfirmPassword'>
+                    <Form.Label className={s.passwordText}>Confirm password</Form.Label>
+                    <Form.Control type="password" className={s.passwordInput} placeholder="Confirm password"
+                                  {...register('confirmPassword', {
+                                      required: {value: true, message: 'This is required'}, minLength: {
+                                          value: 4,
+                                          message: 'Min length 4'
+                                      }
+                                  })}/>
+                </FormGroup>
                 <div className={s.buttonContainer}>
                     <Button className={s.button} type={'submit'} size={'sm'} onClick={() => {
                     }}>Sign Up</Button>
-                </div>
-                <div className={s.downText}>
-                    <p>Already have an account?</p>
-                </div>
-                <div className={s.link}>
-                <Link to={'login'}>Sign in</Link>
+                    <p className={s.text}>Already have an account?</p>
+                    <Link to={CARDS.LOGIN} className={s.linkSignIn}>Sign in</Link>
                 </div>
             </Form>
         </div>

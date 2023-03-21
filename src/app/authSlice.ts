@@ -3,27 +3,30 @@ import {authApi, RequestLoginType} from "../api/authApi";
 import {changeStatusRequest} from "./appSlice";
 import {errorHandler} from "../common/utils/errorCommonFunction";
 
-export const loginIn = createAsyncThunk('auth/loginIn', async (param:RequestLoginType, {dispatch, rejectWithValue})=>{
-    try{
+export const loginIn = createAsyncThunk('auth/loginIn', async (param: RequestLoginType, {
+    dispatch,
+    rejectWithValue
+}) => {
+    try {
         dispatch(changeStatusRequest('loading'))
-         await authApi.login(param)
+        await authApi.login(param)
         dispatch(changeStatusRequest('success'))
-        dispatch(isLogin({login:true}))
+        dispatch(isLogin({login: true}))
         return null
-    } catch(e){
+    } catch (e) {
         dispatch(changeStatusRequest('failed'))
-        errorHandler(e,dispatch)
+        errorHandler(e, dispatch)
         return rejectWithValue(e)
     }
 })
 
-export const logout = createAsyncThunk('auth/logout', async(undefined, {dispatch, rejectWithValue})=>{
+export const logout = createAsyncThunk('auth/logout', async (undefined, {dispatch, rejectWithValue}) => {
     dispatch(changeStatusRequest('loading'))
-    try{
+    try {
         await authApi.logout()
         dispatch(changeStatusRequest('success'))
-        return dispatch(isLogin({login:false}))
-    }catch(e){
+        return dispatch(isLogin({login: false}))
+    } catch (e) {
         dispatch(changeStatusRequest('failed'))
         errorHandler(e, dispatch)
         rejectWithValue(e)
@@ -31,16 +34,17 @@ export const logout = createAsyncThunk('auth/logout', async(undefined, {dispatch
 })
 
 const slice = createSlice({
-    name:'auth',
-    initialState:{
-        login:false
+    name: 'auth',
+    initialState: {
+        login: false,
+        succsess:false,
     },
-    reducers:{
-        isLogin(state, action:PayloadAction<{login:boolean}>){
+    reducers: {
+        isLogin(state, action: PayloadAction<{ login: boolean }>) {
             state.login = action.payload.login
         }
     },
-    extraReducers(){
+    extraReducers() {
     }
 })
 
